@@ -1,80 +1,506 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Jai Krishna Portfolio</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            background: #0f172a;
-            color: white;
-        }
-        header {
-            background: #1e293b;
-            padding: 40px;
-            text-align: center;
-        }
-        h1 {
-            margin: 0;
-            font-size: 36px;
-        }
-        p {
-            color: #cbd5e1;
-        }
-        section {
-            padding: 30px;
-        }
-        .projects div {
-            background: #1e293b;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 8px;
-        }
-        a {
-            color: #38bdf8;
-            text-decoration: none;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jai Krishna | Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b1020;
+      --card: rgba(255,255,255,0.06);
+      --card-border: rgba(255,255,255,0.12);
+      --text: #f5f7fb;
+      --muted: #b7c0d8;
+      --accent: #7c9cff;
+      --accent-2: #52e5c8;
+      --shadow: 0 20px 50px rgba(0,0,0,0.35);
+      --max: 1120px;
+      --radius: 24px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(124,156,255,0.18), transparent 32%),
+        radial-gradient(circle at bottom right, rgba(82,229,200,0.10), transparent 25%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; }
+
+    .container {
+      width: min(92%, var(--max));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(12px);
+      background: rgba(11,16,32,0.65);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 0;
+    }
+
+    .logo {
+      font-weight: 700;
+      letter-spacing: 0.4px;
+      font-size: 1.1rem;
+    }
+
+    .logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-size: 0.95rem;
+      transition: 0.2s ease;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .hero {
+      padding: 84px 0 56px;
+      display: grid;
+      grid-template-columns: 1.3fr 0.9fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .hero-card,
+    .section-card,
+    .project-card,
+    .skill-card,
+    .contact-card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card {
+      padding: 40px;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(124,156,255,0.35);
+      color: var(--accent);
+      background: rgba(124,156,255,0.08);
+      font-size: 0.85rem;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(2.3rem, 4vw, 4.2rem);
+      line-height: 1.1;
+      margin-bottom: 14px;
+    }
+
+    .hero h1 span { color: var(--accent); }
+
+    .subtitle {
+      font-size: 1.08rem;
+      color: var(--muted);
+      max-width: 650px;
+      margin-bottom: 24px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 20px;
+      border-radius: 14px;
+      font-weight: 600;
+      transition: 0.25s ease;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), #99b2ff);
+      color: #09111f;
+    }
+
+    .btn-primary:hover { transform: translateY(-2px); }
+
+    .btn-secondary {
+      border-color: rgba(255,255,255,0.14);
+      color: var(--text);
+      background: rgba(255,255,255,0.04);
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .stat {
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      text-align: center;
+    }
+
+    .stat h3 {
+      font-size: 1.4rem;
+      color: var(--accent-2);
+      margin-bottom: 4px;
+    }
+
+    .profile-panel {
+      padding: 28px;
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 18px;
+    }
+
+    .profile-box {
+      aspect-ratio: 1/1;
+      border-radius: 28px;
+      background: linear-gradient(145deg, rgba(124,156,255,0.24), rgba(82,229,200,0.12));
+      border: 1px solid rgba(255,255,255,0.12);
+      display: grid;
+      place-items: center;
+      font-size: 4rem;
+      font-weight: 700;
+      color: white;
+    }
+
+    section {
+      padding: 18px 0 42px;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 18px;
+    }
+
+    .section-title span { color: var(--accent); }
+
+    .section-card {
+      padding: 28px;
+    }
+
+    .about-text,
+    .muted {
+      color: var(--muted);
+    }
+
+    .skills-grid,
+    .projects-grid,
+    .contact-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .skills-grid {
+      grid-template-columns: repeat(5, 1fr);
+    }
+
+    .skill-card {
+      padding: 22px 18px;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .projects-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .project-card {
+      padding: 22px;
+    }
+
+    .project-card h3 {
+      margin-bottom: 10px;
+      font-size: 1.15rem;
+    }
+
+    .project-card p {
+      color: var(--muted);
+      margin-bottom: 14px;
+      font-size: 0.96rem;
+    }
+
+    .chip-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .chip {
+      font-size: 0.82rem;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(124,156,255,0.10);
+      border: 1px solid rgba(124,156,255,0.22);
+      color: #d8e1ff;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 16px;
+    }
+
+    .timeline-item {
+      padding: 20px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+    }
+
+    .timeline-item h3 {
+      margin-bottom: 6px;
+      font-size: 1.05rem;
+    }
+
+    .contact-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .contact-card {
+      padding: 22px;
+    }
+
+    .contact-card h3 {
+      margin-bottom: 8px;
+    }
+
+    footer {
+      padding: 28px 0 48px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 980px) {
+      .hero,
+      .projects-grid,
+      .skills-grid,
+      .contact-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 680px) {
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .hero-card,
+      .profile-panel,
+      .section-card,
+      .project-card,
+      .contact-card {
+        padding: 20px;
+      }
+
+      .hero-stats,
+      .projects-grid,
+      .skills-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      h1 { font-size: 2.2rem; }
+      .section-title { font-size: 1.6rem; }
+    }
+  </style>
 </head>
-
 <body>
-
-<header>
-    <h1>Jai Krishna</h1>
-    <p>Python Developer | SQL | Data Analysis</p>
-</header>
-
-<section>
-    <h2>🚀 Projects</h2>
-
-    <div class="projects">
-        <div>
-            <h3>Sales Data Analysis</h3>
-            <p>Analyzed sales data using Python and Pandas to find insights.</p>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">Jai <span>Krishna</span></div>
+        <div class="nav-links">
+          <a href="#about">About</a>
+          <a href="#skills">Skills</a>
+          <a href="#projects">Projects</a>
+          <a href="#education">Education</a>
+          <a href="#contact">Contact</a>
         </div>
-
-        <div>
-            <h3>SQL Employee Database</h3>
-            <p>Designed database and used SQL queries like JOIN and GROUP BY.</p>
-        </div>
-
-        <div>
-            <h3>Student Management System</h3>
-            <p>Built using Python to manage student records.</p>
-        </div>
+      </nav>
     </div>
-</section>
+  </header>
 
-<section>
-    <h2>🧠 Skills</h2>
-    <p>Python | SQL | Pandas | NumPy | Excel</p>
-</section>
+  <main class="container">
+    <section class="hero">
+      <div class="hero-card">
+        <div class="tag">Open to Data Analyst & Python Developer Roles</div>
+        <h1>Building a strong start in <span>Data Science</span>, Python, and Analytics.</h1>
+        <p class="subtitle">
+          I am Jai Krishna, a fresher focused on Python development, SQL, data analysis, and practical problem-solving. I enjoy building clean, useful projects that turn data into insights and ideas into working solutions.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#projects">View Projects</a>
+          <a class="btn btn-secondary" href="#contact">Contact Me</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat">
+            <h3>Python</h3>
+            <p>Development & scripting</p>
+          </div>
+          <div class="stat">
+            <h3>SQL</h3>
+            <p>Queries & database basics</p>
+          </div>
+          <div class="stat">
+            <h3>Analytics</h3>
+            <p>Cleaning, insight, reporting</p>
+          </div>
+        </div>
+      </div>
 
-<section>
-    <h2>📞 Contact</h2>
-    <p>Email: yourmail@gmail.com</p>
-    <p>GitHub: <a href="https://github.com/jaikrishna-2309">Click Here</a></p>
-</section>
+      <div class="hero-card profile-panel">
+        <div class="profile-box">JK</div>
+        <div>
+          <h3 style="margin-bottom: 8px;">Quick Profile</h3>
+          <p class="muted">Fresher | BCA Data Science Graduate | Interested in Data Analyst, AI/ML, and Python Developer opportunities.</p>
+        </div>
+        <div class="chip-wrap">
+          <span class="chip">Problem Solving</span>
+          <span class="chip">Data Cleaning</span>
+          <span class="chip">Visualization</span>
+          <span class="chip">Machine Learning</span>
+        </div>
+      </div>
+    </section>
 
+    <section id="about">
+      <h2 class="section-title">About <span>Me</span></h2>
+      <div class="section-card">
+        <p class="about-text">
+          I am a motivated entry-level professional with a strong interest in data analytics, machine learning, and Python-based application development. My goal is to contribute to real-world projects, keep improving my technical foundation, and grow in a role where I can solve business problems using data and technology.
+        </p>
+      </div>
+    </section>
+
+    <section id="skills">
+      <h2 class="section-title">Technical <span>Skills</span></h2>
+      <div class="skills-grid">
+        <div class="skill-card">Python</div>
+        <div class="skill-card">SQL</div>
+        <div class="skill-card">Pandas</div>
+        <div class="skill-card">NumPy</div>
+        <div class="skill-card">Excel</div>
+        <div class="skill-card">Data Cleaning</div>
+        <div class="skill-card">Visualization</div>
+        <div class="skill-card">Machine Learning</div>
+        <div class="skill-card">Power BI</div>
+        <div class="skill-card">Git & GitHub</div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2 class="section-title">Featured <span>Projects</span></h2>
+      <div class="projects-grid">
+        <div class="project-card">
+          <h3>Smart Electricity System</h3>
+          <p>Developed an intelligent electricity analysis system that helps monitor energy usage, detect unusual consumption patterns, estimate costs, and support data-driven decision-making. The project combines data processing, anomaly detection, and interactive visualization to make electricity insights easier to understand for users and stakeholders.</p>
+          <div class="chip-wrap">
+            <span class="chip">Python</span>
+            <span class="chip">Streamlit</span>
+            <span class="chip">Pandas</span>
+            <span class="chip">Matplotlib</span>
+            <span class="chip">Scikit-learn</span>
+            <span class="chip">CSV Data Analysis</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <h3>Fake Review Detector</h3>
+          <p>Built a machine learning based review classification system to identify misleading or suspicious online reviews from textual data. The project focuses on text preprocessing, feature extraction, and predictive modeling to improve trust in digital feedback and support better business and customer decisions.</p>
+          <div class="chip-wrap">
+            <span class="chip">Python</span>
+            <span class="chip">NLP</span>
+            <span class="chip">Scikit-learn</span>
+            <span class="chip">Pandas</span>
+            <span class="chip">Text Preprocessing</span>
+            <span class="chip">Classification</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="education">
+      <h2 class="section-title">Education & <span>Highlights</span></h2>
+      <div class="section-card timeline">
+        <div class="timeline-item">
+          <h3>BCA in Data Science</h3>
+          <p class="muted">Add your college name, graduation year, and CGPA/percentage here.</p>
+        </div>
+        <div class="timeline-item">
+          <h3>Career Focus</h3>
+          <p class="muted">Seeking opportunities in Data Analyst, Python Developer, and entry-level AI/ML roles.</p>
+        </div>
+        <div class="timeline-item">
+          <h3>Strengths</h3>
+          <p class="muted">Quick learner, detail-oriented, consistent in practice, and interested in building real-world portfolio projects.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2 class="section-title">Let’s <span>Connect</span></h2>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <h3>Email</h3>
+          <p class="muted">jaikrishna2602@gmail.com</p>
+        </div>
+        <div class="contact-card">
+          <h3>GitHub</h3>
+          <p class="muted">github.com/Jaikrishna-2309</p>
+        </div>
+        <div class="contact-card">
+          <h3>LinkedIn</h3>
+          <p class="muted">https://www.linkedin.com/in/jaikrishna-data-analyst</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 2026 Jai Krishna. Designed for a modern fresher portfolio.
+  </footer>
 </body>
 </html>
